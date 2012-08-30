@@ -7,7 +7,8 @@
 	}
 	class rotation
 	{
-		public $type ="";
+		public $type ="";// eulers, quaterions etc
+		public $unit ="";// radians, degrees
 		public $x = 0.0;
 		public $y = 0.0;
 		public $z = 0.0;
@@ -15,7 +16,7 @@
 	}
 
 	define("DEG_TO_RAD", "0.01745329238");
-	define("RAD_TO_DEG", "57.29578f");
+	define("RAD_TO_DEG", "57.29578");
 
 	function PrintVec($vec)
 	{
@@ -30,11 +31,32 @@
 	{
 		echo "Rotation{ ";
 		echo "<span style='color:violet;'>type: ". $rot->type ."</span>, ";
+		echo "<span style='color:darkblue;'>unit: ". $rot->unit ."</span>, ";
 		echo "<span style='color:red;'>X: ". $rot->x ."</span>, ";
 		echo "<span style='color:green;'>Y: ". $rot->y ."</span>, ";
 		echo "<span style='color:blue;'>Z: ". $rot->z ."</span> ";
 		echo "<span style='color:orange;'>W: ". $rot->w ."</span> ";
 		echo "}";
+	}
+	
+	function DegToRad($rot)
+	{
+		$rot->x = $rot->x*DEG_TO_RAD;
+		$rot->y = $rot->y*DEG_TO_RAD;
+		$rot->z = $rot->z*DEG_TO_RAD;
+		$rot->w = $rot->w*DEG_TO_RAD;
+		$rot->unit = "radians";
+		return $rot;
+	}
+	
+	function RadToDeg($rot)
+	{
+		$rot->x = $rot->x*RAD_TO_DEG;
+		$rot->y = $rot->y*RAD_TO_DEG;
+		$rot->z = $rot->z*RAD_TO_DEG;
+		$rot->w = $rot->w*RAD_TO_DEG;
+		$rot->unit = "degrees";
+		return $rot;
 	}
 	
 	function NormaliseRot($rot)
@@ -120,5 +142,6 @@
 
     return $vec;
 	}
+	
 ?>
 
